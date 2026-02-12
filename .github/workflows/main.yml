@@ -3,9 +3,9 @@ on:
   workflow_dispatch:
     inputs:
       scan_limit:
-        description: 'عدد الأجهزة المراد فحصها (مثلاً: 5)'
+        description: 'عدد الأجهزة التي ترغب في فحصها من القائمة'
         required: true
-        default: '10'
+        default: '5'
 
 jobs:
   capture-screens:
@@ -21,22 +21,24 @@ jobs:
 
       - name: Setup Virtual Display
         run: |
+          # إنشاء شاشة وهمية
           Xvfb :99 -screen 0 1280x1024x24 &
           echo "DISPLAY=:99" >> $GITHUB_ENV
 
       - name: Run xfreerdp Scan
         run: |
           export DISPLAY=:99
-          fluxbox &
+          fluxbox & # تشغيل مدير النوافذ لضمان ظهور الإطار الرسومي
           sleep 3
 
+          # استخراج البورت الافتراضي
           DEFAULT_PORT=$(grep "port=" nonla.txt | cut -d'=' -f2 || echo "3389")
           
           # استخراج العدد المطلوب من المدخلات
           LIMIT=${{ github.event.inputs.scan_limit }}
           echo "[*] Starting scan for the first $LIMIT targets..."
 
-          # استخدام head لتحديد عدد الأسطر المقروءة من الملف
+          # قراءة الأسطر بناءً على العدد المحدد
           grep -v "port=" nonla.txt | head -n "$LIMIT" | while read -r line || [ -n "$line" ]; do
             [[ -z "$line" ]] && continue
             
@@ -50,13 +52,18 @@ jobs:
 
             echo "[*] Connecting to $IP:$PORT..."
             
-            # تشغيل xfreerdp بدون +auth-only لضمان ظهور الجرافيك
-            timeout 35s xfreerdp /v:$IP /port:$PORT /cert:ignore /sec:any /size:1024x768 /u:admin /p:admin /network:auto /gfx:off /audio-mode:2 &
+            # تصحيح صياغة الأمر: تم تغيير /gfx:off و /audio-mode لضمان التوافق
+            # تم إزالة +auth-only للسماح بظهور الشاشة
+            timeout 40s xfreerdp /v:$IP:$PORT /cert:ignore /sec:any /size:1024x768 /u:admin /p:admin /network:auto -themes -wallpaper /audio-mode:2 &
             XFREE_PID=$!
             
+            # انتظار تحميل الواجهة الرسومية
             sleep 25
-            scrot "${IP}_logon.png"
             
+            # التقاط الصورة
+            scrot "${IP}_screen.png"
+            
+            # إنهاء العملية للانتقال للتالي
             kill $XFREE_PID || kill -9 $XFREE_PID || true
             sleep 2
           done
