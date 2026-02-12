@@ -1,6 +1,11 @@
-name: RDP Full Scanner (FreeRDP)
+name: RDP Full Scanner (Custom Limit)
 on: 
-  workflow_dispatch: # تشغيل يدوي من تبويب Actions
+  workflow_dispatch:
+    inputs:
+      scan_limit:
+        description: 'عدد الأجهزة المراد فحصها (مثلاً: 5)'
+        required: true
+        default: '10'
 
 jobs:
   capture-screens:
@@ -12,23 +17,27 @@ jobs:
       - name: Install Dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y freerdp2-x11 xvfb scrot
+          sudo apt-get install -y freerdp2-x11 xvfb fluxbox scrot
 
       - name: Setup Virtual Display
         run: |
-          # إنشاء شاشة وهمية لمعالجة النوافذ الرسومية
           Xvfb :99 -screen 0 1280x1024x24 &
           echo "DISPLAY=:99" >> $GITHUB_ENV
 
       - name: Run xfreerdp Scan
         run: |
           export DISPLAY=:99
-          
-          # قراءة البورت الافتراضي من الملف أو استخدام 3389
+          fluxbox &
+          sleep 3
+
           DEFAULT_PORT=$(grep "port=" nonla.txt | cut -d'=' -f2 || echo "3389")
           
-          # معالجة كل IP في الملف
-          grep -v "port=" nonla.txt | while read -r line || [ -n "$line" ]; do
+          # استخراج العدد المطلوب من المدخلات
+          LIMIT=${{ github.event.inputs.scan_limit }}
+          echo "[*] Starting scan for the first $LIMIT targets..."
+
+          # استخدام head لتحديد عدد الأسطر المقروءة من الملف
+          grep -v "port=" nonla.txt | head -n "$LIMIT" | while read -r line || [ -n "$line" ]; do
             [[ -z "$line" ]] && continue
             
             if [[ $line == *":"* ]]; then
@@ -41,21 +50,14 @@ jobs:
 
             echo "[*] Connecting to $IP:$PORT..."
             
-            # استخدام xfreerdp مع خيارات لزيادة التوافق:
-            # /cert:ignore تخطي الشهادات
-            # /sec:rdp إجبار استخدام البروتوكول القياسي (بدون NLA)
-            # /v: العنوان
-            timeout 30s xfreerdp /v:$IP /port:$PORT /cert:ignore /sec:rdp /size:1280x1024 /u:user /p:pass +auth-only &
+            # تشغيل xfreerdp بدون +auth-only لضمان ظهور الجرافيك
+            timeout 35s xfreerdp /v:$IP /port:$PORT /cert:ignore /sec:any /size:1024x768 /u:admin /p:admin /network:auto /gfx:off /audio-mode:2 &
             XFREE_PID=$!
             
-            # انتظار تحميل الشاشة
-            sleep 15
-            
-            # التقاط الصورة
+            sleep 25
             scrot "${IP}_logon.png"
             
-            # إغلاق العملية الحالية
-            kill $XFREE_PID || true
+            kill $XFREE_PID || kill -9 $XFREE_PID || true
             sleep 2
           done
 
