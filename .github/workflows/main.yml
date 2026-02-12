@@ -1,0 +1,68 @@
+name: RDP Screen Capture
+on: 
+  workflow_dispatch: # يسمح لك بتشغيل السكربت يدوياً بضغطة زر
+
+jobs:
+  scan-and-capture:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Install Tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y remmina remmina-plugin-rdp xvfb fluxbox scrot
+
+      - name: Start Virtual Display
+        run: |
+          # تشغيل شاشة وهمية في الخلفية
+          Xvfb :99 -screen 0 1280x1024x24 &
+          echo "DISPLAY=:99" >> $GITHUB_ENV
+
+      - name: Process Servers
+        run: |
+          export DISPLAY=:99
+          fluxbox & # مدير نوافذ لضمان فتح ريمينا بشكل صحيح
+          sleep 3
+
+          # استخراج البورت الافتراضي من الملف أو استخدام 3389
+          DEFAULT_PORT=$(grep "port=" nonla.txt | cut -d'=' -f2 || echo "3389")
+          DEFAULT_PORT=${DEFAULT_PORT:-3389}
+
+          # قراءة الأهداف من الملف
+          grep -v "port=" nonla.txt | while read -r line || [ -n "$line" ]; do
+            [[ -z "$line" ]] && continue # تخطي الأسطر الفارغة
+
+            # تحديد IP والبورت
+            if [[ $line == *":"* ]]; then
+                IP=$(echo $line | cut -d':' -f1)
+                PORT=$(echo $line | cut -d':' -f2)
+            else
+                IP=$line
+                PORT=$DEFAULT_PORT
+            fi
+
+            echo "[*] Connecting to $IP:$PORT..."
+            
+            # تشغيل ريمينا مع إعدادات تخطي NLA والشهادات
+            # نستخدم timeout لمنع السكربت من التعليق إذا كان السيرفر بطيئاً
+            timeout 30s remmina -c "rdp://$IP:$PORT/?security=rdp&ignore-certificate=1&geometry=1280x1024" &
+            REMMINA_PID=$!
+            
+            # انتظر 15 ثانية لتحميل شاشة الويندوز
+            sleep 15
+            
+            # التقاط الصورة باسم الـ IP
+            scrot "${IP}.png"
+            
+            # إغلاق ريمينا للانتقال للهدف التالي
+            kill $REMMINA_PID || true
+            sleep 2
+          done
+
+      - name: Upload Screenshots
+        uses: actions/upload-artifact@v4
+        with:
+          name: rdp-results
+          path: "*.png"
