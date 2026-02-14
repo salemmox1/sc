@@ -1,0 +1,60 @@
+name: Metasploit VNC Scanner
+
+on:
+  workflow_dispatch: # تشغيل يدوي
+
+jobs:
+  msf_scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install Metasploit
+        run: |
+          curl https://raw.githubusercontent.com/rapid7/metasploit-framework/master/ms/msfinstall > msfinstall
+          chmod 755 msfinstall
+          ./msfinstall
+          # تحديث قواعد البيانات الأساسية
+          sudo apt-get install -y nmap 
+
+      - name: Run Metasploit VNC Checks
+        run: |
+          # إنشاء ملف أوامر مخصص لـ Metasploit (Resource Script)
+          cat <<EOF > vnc_check.rc
+          # 1. فحص الأنظمة التي لا تطلب كلمة مرور
+          use auxiliary/scanner/vnc/vnc_none_auth
+          set RHOSTS file:ips.txt
+          set THREADS 10
+          run
+
+          # 2. فحص ثغرة تخطي المصادقة CVE-2006-2369
+          use auxiliary/admin/vnc/realvnc_41_bypass
+          set RHOSTS file:ips.txt
+          run
+          exit
+          EOF
+
+          # تشغيل ميتاسبولت باستخدام ملف الأوامر وحفظ النتيجة
+          msfconsole -r vnc_check.rc | tee raw_results.txt
+
+      - name: Generate Detailed Table
+        run: |
+          echo "### VNC Vulnerability Report" > vnc_report.md
+          echo "| Target IP | Detection Type | Result |" >> vnc_report.md
+          echo "|-----------|----------------|--------|" >> vnc_report.md
+          
+          # استخراج النتائج من مخرجات ميتاسبولت وتحويلها لجدول
+          grep -E "VULNERABLE|identified" raw_results.txt | while read -r line; do
+            IP=$(echo $line | grep -oE "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b" | head -1)
+            RESULT=$(echo $line | cut -d']' -f2-)
+            echo "| $IP | VNC Security Check | $RESULT |" >> vnc_report.md
+          done
+
+      - name: Upload Scan Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: msf-vnc-results
+          path: |
+            raw_results.txt
+            vnc_report.md
