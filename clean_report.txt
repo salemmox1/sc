@@ -1,0 +1,866 @@
+============================================================
+VULNERABILITY ASSESSMENT REPORT
+============================================================
+
+Confirmed Vulnerable Targets: 172
+------------------------------
+TARGET IP : 211.106.80.32
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 211.106.80.32
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 203.109.44.245
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 203.109.44.245
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 112.72.255.151
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 112.72.255.151
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 208.179.3.212
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 208.179.3.212
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 162.17.197.251
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 162.17.197.251
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 180.35.225.106
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 180.35.225.106
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 70.182.62.243
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 70.182.62.243
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 146.168.5.49
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 146.168.5.49
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 223.171.50.193
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 223.171.50.193
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 118.43.159.233
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 118.43.159.233
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 211.218.116.211
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 211.218.116.211
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 67.250.249.169
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 67.250.249.169
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 173.70.18.139
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 173.70.18.139
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 50.225.114.199
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 50.225.114.199
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 172.232.134.230
+PORT      : 445
+STATUS    : VULNERABLE
+DETAILS   : Host is likely VULNERABLE to MS17-010! - Windows 7 Professional 7600
+------------------------------
+TARGET IP : 172.232.134.230
+PORT      : 445
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable.
+------------------------------
+TARGET IP : 203.216.180.37
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 203.216.180.37
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 210.112.172.103
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 210.112.172.103
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 61.25.218.203
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 61.25.218.203
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 211.228.194.231
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 211.228.194.231
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 124.153.252.190
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 124.153.252.190
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 211.54.165.102
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 211.54.165.102
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 222.101.199.51
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 222.101.199.51
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 172.232.108.107
+PORT      : 445
+STATUS    : VULNERABLE
+DETAILS   : Host is likely VULNERABLE to MS17-010! - Windows 7 Professional 7600
+------------------------------
+TARGET IP : 172.232.108.107
+PORT      : 445
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable.
+------------------------------
+TARGET IP : 108.243.161.226
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 108.243.161.226
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 59.151.251.67
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 59.151.251.67
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 117.20.255.147
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 117.20.255.147
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 14.45.161.172
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 14.45.161.172
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 133.218.37.97
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 133.218.37.97
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 180.24.203.157
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 180.24.203.157
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 125.137.105.186
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 125.137.105.186
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 175.208.29.47
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 175.208.29.47
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 180.47.71.32
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 180.47.71.32
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 50.75.10.202
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 50.75.10.202
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 27.95.49.241
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 27.95.49.241
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 210.220.244.211
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 210.220.244.211
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 168.245.231.213
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 168.245.231.213
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 166.254.129.24
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 166.254.129.24
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 91.103.110.26
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 91.103.110.26
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 101.128.215.164
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 101.128.215.164
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 121.163.248.221
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 121.163.248.221
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 112.171.30.125
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 112.171.30.125
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 223.171.49.253
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 223.171.49.253
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 113.151.211.22
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 113.151.211.22
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 115.20.163.151
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 115.20.163.151
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 211.194.197.190
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 211.194.197.190
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 153.129.63.159
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 153.129.63.159
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 175.199.113.57
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 175.199.113.57
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 218.150.171.95
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 218.150.171.95
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 124.216.0.242
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 124.216.0.242
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 49.254.210.97
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 49.254.210.97
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 110.44.39.214
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 110.44.39.214
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 218.234.5.80
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 218.234.5.80
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 218.234.5.77
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 218.234.5.77
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 124.96.133.205
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 124.96.133.205
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 153.215.180.231
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 153.215.180.231
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 185.49.108.63
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 185.49.108.63
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 118.43.2.85
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 118.43.2.85
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 203.216.169.195
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 203.216.169.195
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 56.124.127.24
+PORT      : 445
+STATUS    : VULNERABLE
+DETAILS   : Host is likely VULNERABLE to MS17-010! - Windows 7 Professional 7600
+------------------------------
+TARGET IP : 56.124.127.24
+PORT      : 445
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable.
+------------------------------
+TARGET IP : 211.55.197.108
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 211.55.197.108
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 223.171.43.20
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 223.171.43.20
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 108.227.162.139
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 108.227.162.139
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 172.239.242.151
+PORT      : 445
+STATUS    : VULNERABLE
+DETAILS   : Host is likely VULNERABLE to MS17-010! - Windows 7 Professional 7600
+------------------------------
+TARGET IP : 172.239.242.151
+PORT      : 445
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable.
+------------------------------
+TARGET IP : 218.234.5.83
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 218.234.5.83
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 119.194.62.121
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 119.194.62.121
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 14.39.67.52
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 14.39.67.52
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 221.155.33.168
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 221.155.33.168
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 69.122.78.33
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 69.122.78.33
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 114.150.42.44
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 114.150.42.44
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 180.11.162.240
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 180.11.162.240
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 211.50.99.134
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 211.50.99.134
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 172.236.12.229
+PORT      : 445
+STATUS    : VULNERABLE
+DETAILS   : Host is likely VULNERABLE to MS17-010! - Windows 7 Professional 7600
+------------------------------
+TARGET IP : 172.236.12.229
+PORT      : 445
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable.
+------------------------------
+TARGET IP : 43.205.177.55
+PORT      : 445
+STATUS    : VULNERABLE
+DETAILS   : Host is likely VULNERABLE to MS17-010! - Windows 7 Professional 7600
+------------------------------
+TARGET IP : 43.205.177.55
+PORT      : 445
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable.
+------------------------------
+TARGET IP : 110.14.161.254
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 110.14.161.254
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 100.6.7.35
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 100.6.7.35
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 122.99.170.153
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 122.99.170.153
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 61.252.30.103
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 61.252.30.103
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 39.120.150.198
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 39.120.150.198
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 220.127.201.132
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 220.127.201.132
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 202.210.171.4
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 202.210.171.4
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 153.227.178.41
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 153.227.178.41
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 14.56.127.67
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 14.56.127.67
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 207.111.203.37
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 207.111.203.37
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 211.184.250.59
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 211.184.250.59
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 119.204.209.44
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 119.204.209.44
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 106.251.86.116
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
+TARGET IP : 106.251.86.116
+PORT      : 3389
+STATUS    : VULNERABLE
+DETAILS   : The target is vulnerable. The target attempted cleanup of the incorrectly-bound MS_T120 channel.
+------------------------------
