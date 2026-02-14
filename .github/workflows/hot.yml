@@ -1,60 +1,83 @@
-name: Metasploit VNC Scanner
+name: Kali VNC Vulnerability Scanner (Professional)
 
 on:
   workflow_dispatch: # تشغيل يدوي
 
 jobs:
-  msf_scan:
+  vnc_analysis:
     runs-on: ubuntu-latest
+    container:
+      image: kalilinux/kali-rolling
+      options: --user root
+
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - name: Checkout Code
+        uses: actions/checkout@v4 # تحديث للإصدار 4 كما طلبت
 
-      - name: Install Metasploit
+      - name: Install Professional Tools
         run: |
-          curl https://raw.githubusercontent.com/rapid7/metasploit-framework/master/ms/msfinstall > msfinstall
-          chmod 755 msfinstall
-          ./msfinstall
-          # تحديث قواعد البيانات الأساسية
-          sudo apt-get install -y nmap 
+          apt-get update
+          apt-get install -y metasploit-framework nmap python3 grep
 
-      - name: Run Metasploit VNC Checks
+      - name: Prepare Targets
         run: |
-          # إنشاء ملف أوامر مخصص لـ Metasploit (Resource Script)
-          cat <<EOF > vnc_check.rc
-          # 1. فحص الأنظمة التي لا تطلب كلمة مرور
+          # تنظيف ملف الأهداف واستخراج الـ IPs فقط
+          if [ -f "ips.txt" ]; then
+            grep -oE "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b" ips.txt | sort -u > clean_targets.txt
+          else
+            echo "127.0.0.1" > clean_targets.txt # هدف تجريبي في حال عدم وجود الملف
+          fi
+
+      - name: Execute Metasploit VNC Modules
+        run: |
+          # إنشاء سكربت الأتمتة لميتاسبولت
+          cat <<EOF > vnc_logic.rc
+          # 1. البحث عن الأنظمة بدون حماية تماماً
           use auxiliary/scanner/vnc/vnc_none_auth
-          set RHOSTS file:ips.txt
+          set RHOSTS file:clean_targets.txt
           set THREADS 10
           run
 
-          # 2. فحص ثغرة تخطي المصادقة CVE-2006-2369
+          # 2. اختبار ثغرة تخطي المصادقة CVE-2006-2369
           use auxiliary/admin/vnc/realvnc_41_bypass
-          set RHOSTS file:ips.txt
+          set RHOSTS file:clean_targets.txt
           run
           exit
           EOF
 
-          # تشغيل ميتاسبولت باستخدام ملف الأوامر وحفظ النتيجة
-          msfconsole -r vnc_check.rc | tee raw_results.txt
+          # التشغيل الصامت وحفظ النتائج
+          msfconsole -q -r vnc_logic.rc | tee raw_msf_results.txt
 
-      - name: Generate Detailed Table
+      - name: Advanced Results Parsing (Python)
         run: |
-          echo "### VNC Vulnerability Report" > vnc_report.md
-          echo "| Target IP | Detection Type | Result |" >> vnc_report.md
-          echo "|-----------|----------------|--------|" >> vnc_report.md
-          
-          # استخراج النتائج من مخرجات ميتاسبولت وتحويلها لجدول
-          grep -E "VULNERABLE|identified" raw_results.txt | while read -r line; do
-            IP=$(echo $line | grep -oE "\b([0-9]{1,3}\.){3}[0-9]{1,3}\b" | head -1)
-            RESULT=$(echo $line | cut -d']' -f2-)
-            echo "| $IP | VNC Security Check | $RESULT |" >> vnc_report.md
-          done
+          python3 - <<EOF
+          import os
 
-      - name: Upload Scan Artifacts
-        uses: actions/upload-artifact@v4
+          print("--- Processing Results ---")
+          results_file = "raw_msf_results.txt"
+          report_file = "vnc_final_report.md"
+
+          with open(report_file, "w") as f:
+              f.write("# VNC Security Audit Report\n\n")
+              f.write("| Target IP | Status | Details |\n")
+              f.write("|-----------|--------|---------|\n")
+
+              if os.path.exists(results_file):
+                  with open(results_file, "r") as r:
+                      for line in r:
+                          if "VULNERABLE" in line or "identified" in line:
+                              parts = line.split()
+                              ip = "Unknown"
+                              for p in parts:
+                                  if "." in p and p[0].isdigit(): ip = p
+                              status = "VULNERABLE (Bypass)" if "VULNERABLE" in line else "Open (No Auth)"
+                              f.write(f"| {ip} | **{status}** | {line.strip()} |\n")
+          EOF
+
+      - name: Upload Audit Results
+        uses: actions/upload-artifact@v4 # تحديث للإصدار 4 كما طلبت
         with:
-          name: msf-vnc-results
+          name: vnc-audit-results
           path: |
-            raw_results.txt
-            vnc_report.md
+            raw_msf_results.txt
+            vnc_final_report.md
