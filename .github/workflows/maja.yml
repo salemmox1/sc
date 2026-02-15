@@ -1,0 +1,28 @@
+name: Build External WinPwnage
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Clone External Repository
+      run: git clone https://github.com/rootm0s/WinPwnage.git
+
+    - name: Install PyInstaller
+      run: |
+        cd WinPwnage
+        pip install pyinstaller
+
+    - name: Build Tool
+      run: |
+        cd WinPwnage
+        pyinstaller --onefile main.py
+
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: WinPwnage-EXE
+        path: WinPwnage/dist/main.exe
